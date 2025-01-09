@@ -11,7 +11,7 @@ export default function Footer() {
                     </svg>      
                     Binance
                 </Link>
-                <p className="text-white/60 text-sm font-light">© 2025 Logo. All rights reserved.</p>
+                <p className="text-white/60 text-sm font-light">© 2025 Binance. All rights reserved.</p>
             </div>
         </footer>
     )
