@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { currencyFormat } from "../../utils/currencyFormat";
 import { Ellipsis } from 'lucide-react';
 
 export const CryptoData = ({ cryptoIds }) => {
     const [cryptoData, setCryptoData] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCryptoData = async () => {
             try {
                 const url = `https://api.coingecko.com/api/v3/coins/markets?ids=${cryptoIds.join(',')}&vs_currency=usd`;
+                const options = {
+                    method: 'GET',
+                    headers: {accept: 'application/json', 'x-cg-demo-api-key': import.meta.env.VITE_COINGECKO_API_KEY},
+                };
 
-                const response = await fetch(url);
+                const response = await fetch(url, options);
                 const data = await response.json();
                 setCryptoData(data);
             } catch (error) {
@@ -22,10 +28,6 @@ export const CryptoData = ({ cryptoIds }) => {
             fetchCryptoData();
         }
     }, [cryptoIds]);
-
-    function currencyFormat(num) {
-        return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-    }
 
     return (
         <>
