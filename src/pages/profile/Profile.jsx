@@ -6,6 +6,7 @@ export default function Profile() {
   const user = JSON.parse(localStorage.getItem("userLogin"));
   const [totalValue, setTotalValue] = useState(0);
   const [cryptoData, setCryptoData] = useState({});
+  const [dataFetched, setDataFetched] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -66,13 +67,14 @@ export default function Profile() {
         });
         setTotalValue(total.toFixed(2));
         setCryptoData(cryptoDataMap);
+        setDataFetched(true);
       } catch (error) {
         console.error("Error fetching crypto prices:", error);
       }
     };
 
     fetchPrices();
-  }, [user, navigate]);
+  }, [user, navigate, dataFetched]);
 
   if (!user) {
     return null;
