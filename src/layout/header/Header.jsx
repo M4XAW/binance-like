@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
     const handleLogOut = () => {
-        localStorage.clear("userLogin");
+        localStorage.removeItem("userLogin");
     };
 
     return (
@@ -45,6 +45,24 @@ export default function Header() {
                         className="text-sm text-white/60 hover:text-white/100 transition-colors"
                     >
                         Marchés
+                    </Link>
+                    <Link
+                        to="/ordres"
+                        className="text-sm text-white/60 hover:text-white/100 transition-colors"
+                    >
+                        Mes actifs
+                    </Link>
+                    <Link
+                        to="/virement"
+                        className="text-sm text-white/60 hover:text-white/100 transition-colors"
+                    >
+                        Virements
+                    </Link>
+                    <Link
+                        to="/historique"
+                        className="text-sm text-white/60 hover:text-white/100 transition-colors"
+                    >
+                        Historique
                     </Link>
                 </nav>
                 <div className="flex items-center space-x-4">
