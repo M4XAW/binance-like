@@ -4,12 +4,46 @@ import { useNavigate } from "react-router-dom";
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  
   const users = [
-    { username: "user1", password: "password1" },
-    { username: "user2", password: "password2" },
+    {
+      username: "user1",
+      password: "password1",
+      portemonnaie: {
+        BTC: 1.5,
+        ETH: 3.2,
+        USDT: 1000,
+        XRP: 500,
+        BNB: 10,
+        SOL: 12,
+        DOGE: 2000,
+        USDC: 1500,
+        ADA: 1000,
+        SETH: 0.5,
+      },
+    },
+    {
+      username: "user2",
+      password: "password2",
+      portemonnaie: {
+        BTC: 0.8,
+        ETH: 1.5,
+        USDT: 500,
+        XRP: 300,
+        BNB: 5,
+        SOL: 7,
+        DOGE: 1000,
+        USDC: 800,
+        ADA: 600,
+        SETH: 0.2,
+      },
+    },
   ];
+
   localStorage.setItem("usersList", JSON.stringify(users));
+
   const navigate = useNavigate();
+
   const handleLogin = () => {
     const users = JSON.parse(localStorage.getItem("usersList")) || [];
     const user = users.find(
@@ -24,15 +58,10 @@ export default function LoginForm() {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="bg-gray-900 p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center text-white">
-          Connexion
-        </h2>
+        <h2 className="text-2xl font-bold mb-6 text-center text-white">Connexion</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label
-              className="block text-gray-300 text-sm font-bold mb-2"
-              htmlFor="username"
-            >
+            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="username">
               Nom d&apos;utilisateur
             </label>
             <input
@@ -42,15 +71,11 @@ export default function LoginForm() {
               placeholder="Nom d'utilisateur"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              autoComplete="username"
               required
             />
           </div>
           <div className="mb-6">
-            <label
-              className="block text-gray-300 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
+            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="password">
               Mot de passe
             </label>
             <input
@@ -60,13 +85,12 @@ export default function LoginForm() {
               placeholder="Mot de passe"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              autoComplete="current-password"
               required
             />
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="inline-flex items-center justify-center sm:w-auto w-9 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-1 outline-offset-4 disabled:pointer-events-none disabled:opacity-50 bg-gray-50 text-zinc-950 shadow hover:bg-gray-50/90 h-9 py-2 px-4"
+              className="bg-gray-100 hover:bg-gray-700 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
               Se connecter
