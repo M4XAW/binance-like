@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 
 import PageLayout from "./layout/PageLayout";
 import Home from "./pages/home/Home";
+import Markets from "./pages/markets/Markets";
+import CryptoDetail from "./pages/cryptoDetail/CryptoDetail";
 import NotFound from "./pages/notFound/NotFound";
 import Login from "./pages/login/Login";
 
@@ -12,7 +14,9 @@ export default function App() {
       <Routes>
         <Route element={<PageLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/markets/overview" element={<Markets />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/price/:id" element={<CryptoDetail />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
