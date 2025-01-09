@@ -5,7 +5,6 @@ export default function Profile() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("userLogin"));
   const [totalValue, setTotalValue] = useState(0);
-  const [icon, setIcon] = useState([]);
 
   useEffect(() => {
     if (!user) {
@@ -67,7 +66,6 @@ export default function Profile() {
   if (!user) {
     return null;
   }
-  console.log(icon);
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="bg-gray-900 p-8 rounded shadow-md w-full max-w-md">
