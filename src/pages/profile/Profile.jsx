@@ -108,22 +108,6 @@ export default function Profile() {
             ))}
           </ul>
         </div>
-        <div className="mt-6">
-          <h3 className="text-xl font-bold mb-4 text-white">
-            Historique des Transactions
-          </h3>
-          <ul>
-            {user.transactions.map((transaction, index) => (
-              <li key={index} className="text-gray-300 mb-2">
-                <strong>Date:</strong> {transaction.date},{" "}
-                <strong>Type:</strong> {transaction.type},{" "}
-                <strong>Montant:</strong> {transaction.amount},{" "}
-                <strong>Prix:</strong> ${transaction.price},{" "}
-                <strong>Crypto:</strong> {transaction.crypto}
-              </li>
-            ))}
-          </ul>
-        </div>
         <button
           className="bg-gray-100 hover:bg-gray-700 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
           onClick={() => {
