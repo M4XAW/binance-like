@@ -34,7 +34,7 @@ export default function Markets() {
                                     "bitcoin",
                                     "ethereum",
                                     "tether",
-                                    "binance-peg-xrp",
+                                    "ripple",
                                     "bnb",
                                     "solana",
                                     "dogecoin",
