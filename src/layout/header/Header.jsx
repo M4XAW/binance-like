@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import NotificationBell from "../../components/notificationBell/NotificationBell";
 
 export default function Header() {
     const handleLogOut = () => {
@@ -66,6 +67,9 @@ export default function Header() {
                     </Link>
                 </nav>
                 <div className="flex items-center space-x-4">
+                    {/* Cloche de notifications */}
+                    <NotificationBell />
+
                     {!localStorage.getItem("userLogin") ? (
                         <Link
                             to="/login"

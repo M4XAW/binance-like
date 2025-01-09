@@ -77,9 +77,18 @@ function VirementCrypto() {
     transactionHistory.push(transaction);
     localStorage.setItem('transactionHistory', JSON.stringify(transactionHistory));
 
-    alert(
-      `Transaction réussie ! ${amount} ${selectedCrypto} envoyés de ${sender.username} à ${receiver.username}`
-    );
+    // Ajouter une notification
+    const notification = {
+      type: 'success',
+      message: `Transaction réussie ! ${amount} ${selectedCrypto} envoyés de ${sender.username} à ${receiver.username}.`,
+      timestamp: new Date().toISOString(),
+    };
+
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+    notifications.push(notification);
+    localStorage.setItem('notifications', JSON.stringify(notifications));
+
+    alert(notification.message);
 
     setAmount('');
     setSelectedReceiver(null);
