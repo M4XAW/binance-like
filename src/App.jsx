@@ -8,6 +8,8 @@ import CryptoDetail from "./pages/cryptoDetail/CryptoDetail";
 import NotFound from "./pages/notFound/NotFound";
 import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
+import VirementCrypto from "./pages/virementCrypto/VirementCrypto";
+import Historique from "./pages/historique/Historique";
 
 export default function App() {
   return (
@@ -17,6 +19,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/markets/overview" element={<Markets />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/virement" element={<VirementCrypto />} />
+          <Route path="/historique" element={<Historique />} />
           <Route path="/price/:id" element={<CryptoDetail />} />
           <Route path="/profile" element={<Profile />} />
         </Route>

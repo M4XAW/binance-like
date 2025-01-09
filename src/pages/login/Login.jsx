@@ -22,20 +22,6 @@ export default function LoginForm() {
         seth: 0.5,
       },
       transactions: [
-        {
-          date: "2023-10-01",
-          type: "marché",
-          amount: 1.5,
-          price: 50000,
-          crypto: "btc",
-        },
-        {
-          date: "2023-10-02",
-          type: "limité",
-          amount: 3.2,
-          price: 2000,
-          crypto: "eth",
-        },
         // Ajoutez d'autres transactions ici
       ],
     },
@@ -55,20 +41,6 @@ export default function LoginForm() {
         seth: 0.2,
       },
       transactions: [
-        {
-          date: "2023-10-03",
-          type: "marché",
-          amount: 0.8,
-          price: 55000,
-          crypto: "btc",
-        },
-        {
-          date: "2023-10-04",
-          type: "limité",
-          amount: 1.5,
-          price: 2100,
-          crypto: "eth",
-        },
         // Ajoutez d'autres transactions ici
       ],
     },
@@ -144,3 +116,4 @@ export default function LoginForm() {
     </div>
   );
 }
+
