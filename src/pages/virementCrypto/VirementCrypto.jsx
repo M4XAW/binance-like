@@ -62,10 +62,25 @@ function VirementCrypto() {
     });
 
     localStorage.setItem('usersList', JSON.stringify(updatedUsers));
-
     setUsers(updatedUsers);
 
-    alert(`Transaction réussie ! ${amount} ${selectedCrypto} envoyés de ${sender.username} à ${receiver.username}`);
+    // Ajouter la transaction à l'historique
+    const transaction = {
+      sender: selectedSender,
+      receiver: selectedReceiver,
+      crypto: selectedCrypto,
+      amount: parseFloat(amount),
+      date: new Date().toLocaleString(),
+    };
+
+    const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
+    transactionHistory.push(transaction);
+    localStorage.setItem('transactionHistory', JSON.stringify(transactionHistory));
+
+    alert(
+      `Transaction réussie ! ${amount} ${selectedCrypto} envoyés de ${sender.username} à ${receiver.username}`
+    );
+
     setAmount('');
     setSelectedReceiver(null);
     setErrorMessage('');
@@ -99,11 +114,13 @@ function VirementCrypto() {
               onChange={(e) => setSelectedReceiver(e.target.value)}
             >
               <option value="">Sélectionner un utilisateur</option>
-              {users.map((user) => (
-                <option key={user.username} value={user.username}>
-                  {user.username}
-                </option>
-              ))}
+              {users
+                .filter(user => user.username !== selectedSender) // Exclure l'expéditeur
+                .map(user => (
+                  <option key={user.username} value={user.username}>
+                    {user.username}
+                  </option>
+                ))}
             </select>
           </div>
 
@@ -154,6 +171,13 @@ function VirementCrypto() {
             Effectuer le virement
           </button>
         </form>
+
+        <button
+          onClick={() => navigate('/historique')}
+          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Voir l'historique des transactions
+        </button>
       </div>
     </div>
   );
