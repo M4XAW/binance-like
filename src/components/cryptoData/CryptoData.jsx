@@ -40,19 +40,19 @@ export const CryptoData = ({ cryptoIds }) => {
                 <table className="w-full caption-bottom text-sm">
                     <thead>
                         <tr>
-                            <th className="h-10 px-4 text-left text-white/60 align-middle font-medium cursor-pointer">
+                            <th className="h-10 px-4 text-left text-white/60 align-middle font-medium">
                                 Nom
                             </th>
-                            <th className="h-10 px-4 text-left text-white/60 align-middle font-medium">
+                            <th className="h-10 px-4 text-left text-white/60 align-middle font-medium border-l border-neutral-800">
                                 Prix
                             </th>
-                            <th className="h-10 px-4 text-left text-white/60 align-middle font-medium cursor-pointer">
+                            <th className="h-10 px-4 text-left text-white/60 align-middle font-medium border-l border-neutral-800">
                                 Variation
                             </th>
-                            <th className="h-10 px-4 text-left text-white/60 align-middle font-medium">
+                            <th className="h-10 px-4 text-left text-white/60 align-middle font-medium border-l border-neutral-800">
                                 Volume 24h
                             </th>
-                            <th className="h-10 px-4 text-left align-middle text-white/60 font-medium">
+                            <th className="h-10 px-4 text-left align-middle text-white/60 font-medium border-l border-neutral-800">
                                 Capitalisation
                             </th>
                             <th className="h-10 w-12 text-right px-4 align-middle text-white/60 font-medium"></th>
@@ -88,21 +88,21 @@ export const CryptoData = ({ cryptoIds }) => {
                                             </span>
                                         </div>
                                     </td>
-                                    <td className="h-12 px-4 text-white">
+                                    <td className="h-12 px-4 text-white border-l border-neutral-800">
                                         {currencyFormat(crypto.current_price)}
                                     </td>
                                     <td
-                                        className={`h-10 px-4 ${priceChangeClass}`}
+                                        className={`h-10 px-4 ${priceChangeClass} border-l border-neutral-800`}
                                     >
                                         {crypto.price_change_percentage_24h.toFixed(
                                             2
                                         )}
                                         %
                                     </td>
-                                    <td className="h-12 px-4 text-white">
+                                    <td className="h-12 px-4 text-white border-l border-neutral-800">
                                         {currencyFormat(crypto.total_volume)}
                                     </td>
-                                    <td className="h-12 px-4 text-white">
+                                    <td className="h-12 px-4 text-white border-l border-neutral-800">
                                         {currencyFormat(crypto.market_cap)}
                                     </td>
                                     <td className="h-12 px-4 text-white text-end">
