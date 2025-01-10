@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import NotificationBell from "../../components/notificationBell/NotificationBell";
 
 export default function Header() {
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function Header() {
 
     return (
         <header className="sticky top-0 z-20 w-full border-b border-neutral-800 bg-white/80 dark:bg-zinc-950/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container mx-auto flex justify-between items-center h-16 max-w-screen-2xl md:px-8 px-4 border-x border-neutral-800">
+            <div className="container mx-auto flex justify-between items-center h-16 max-w-screen-2xl md:px-8 px-4">
                 <nav className="flex items-center space-x-5">
                     <Link
                         to="/"
@@ -59,6 +60,18 @@ export default function Header() {
                         className="text-sm text-white/60 hover:text-white/100 transition-colors"
                     >
                         Virements
+                    </Link>
+                    <Link
+                        to="/retrait"
+                        className="text-sm text-white/60 hover:text-white/100 transition-colors"
+                    >
+                        Retraits
+                    </Link>
+                    <Link
+                        to="/depot"
+                        className="text-sm text-white/60 hover:text-white/100 transition-colors"
+                    >
+                        Dépôt
                     </Link>
                     <Link
                         to="/historique"

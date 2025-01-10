@@ -1,79 +1,73 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const users = [
+  const initialUsers = [
     {
       username: "user1",
       password: "password1",
       portemonnaie: {
-        btc: 1.5,
-        eth: 3.2,
-        usdt: 1000,
-        xrp: 500,
-        bnb: 10,
-        sol: 12,
-        doge: 2000,
-        usdc: 1500,
-        ada: 1000,
-        seth: 0.5,
+        BTC: 1.5,
+        ETH: 3.2,
+        USDT: 1000,
+        XRP: 500,
+        BNB: 10,
+        SOL: 12,
+        DOGE: 2000,
+        USDC: 1500,
+        ADA: 1000,
+        SETH: 0.5,
       },
-      transactions: [
-        // Ajoutez d'autres transactions ici
-      ],
     },
     {
       username: "user2",
       password: "password2",
       portemonnaie: {
-        btc: 0.8,
-        eth: 1.5,
-        usdt: 500,
-        xrp: 300,
-        bnb: 5,
-        sol: 7,
-        doge: 1000,
-        usdc: 800,
-        ada: 600,
-        seth: 0.2,
+        BTC: 0.8,
+        ETH: 1.5,
+        USDT: 500,
+        XRP: 300,
+        BNB: 5,
+        SOL: 7,
+        DOGE: 1000,
+        USDC: 800,
+        ADA: 600,
+        SETH: 0.2,
       },
-      transactions: [
-        // Ajoutez d'autres transactions ici
-      ],
     },
   ];
 
-  localStorage.setItem("usersList", JSON.stringify(users));
+  useEffect(() => {
+    const existingUsers = JSON.parse(localStorage.getItem("usersList"));
+    if (!existingUsers) {
+      localStorage.setItem("usersList", JSON.stringify(initialUsers));
+    }
+  }, []);
 
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
-    e.preventDefault();
+
     const users = JSON.parse(localStorage.getItem("usersList")) || [];
     const user = users.find(
       (u) => u.username === username && u.password === password
     );
     if (user) {
       localStorage.setItem("userLogin", JSON.stringify(user));
-      navigate("/profile");
+      navigate("/");
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="bg-gray-900 p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center text-white">
-          Connexion
-        </h2>
+        <h2 className="text-2xl font-bold mb-6 text-center text-white">Connexion</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label
-              className="block text-gray-300 text-sm font-bold mb-2"
-              htmlFor="username"
-            >
+            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="username">
               Nom d&apos;utilisateur
             </label>
             <input
@@ -87,10 +81,7 @@ export default function LoginForm() {
             />
           </div>
           <div className="mb-6">
-            <label
-              className="block text-gray-300 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
+            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="password">
               Mot de passe
             </label>
             <input
@@ -116,4 +107,3 @@ export default function LoginForm() {
     </div>
   );
 }
-
