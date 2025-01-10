@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
@@ -9,11 +9,15 @@ export default function Profile() {
     const [dataFetched, setDataFetched] = useState(false);
 
     useEffect(() => {
+        if (!user) {
+            navigate("/login");
+            return;
+        }
+
         const fetchPrices = async () => {
             try {
                 const cryptoIds = Object.keys(user.portemonnaie)
                     .map((crypto) => {
-                        // Mapper les symboles aux identifiants de CoinGecko
                         switch (crypto.toLowerCase()) {
                             case "btc":
                                 return "bitcoin";
@@ -50,10 +54,10 @@ export default function Profile() {
                 const cryptoDataMap = {};
                 data.forEach((cryptoData) => {
                     const amount =
-                        user.portemonnaie[cryptoData.symbol.toLowerCase()];
+                        user.portemonnaie[cryptoData.symbol.toUpperCase()];
                     if (amount) {
                         total += amount * cryptoData.current_price;
-                        cryptoDataMap[cryptoData.symbol.toLowerCase()] = {
+                        cryptoDataMap[cryptoData.symbol.toUpperCase()] = {
                             name: cryptoData.name,
                             image: cryptoData.image,
                             price: cryptoData.current_price,
@@ -69,7 +73,9 @@ export default function Profile() {
             }
         };
 
-        fetchPrices();
+        if (!dataFetched) {
+            fetchPrices();
+        }
     }, [user, navigate, dataFetched]);
 
     if (!user) {
@@ -96,7 +102,7 @@ export default function Profile() {
                         {Object.entries(cryptoData).map(([crypto, data]) => (
                             <li
                                 key={crypto}
-                                className="flex items-center text-gray-300 mb-4 last:mb-0"
+                                className="text-gray-300 mb-4 flex items-center"
                             >
                                 <img
                                     src={data.image}
@@ -112,6 +118,15 @@ export default function Profile() {
                         ))}
                     </ul>
                 </div>
+                <button
+                    className="bg-gray-100 hover:bg-gray-700 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
+                    onClick={() => {
+                        localStorage.removeItem("userLogin");
+                        navigate("/login");
+                    }}
+                >
+                    Se déconnecter
+                </button>
             </div>
         </div>
     );

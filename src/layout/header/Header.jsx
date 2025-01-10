@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import NotificationBell from "../../components/notificationBell/NotificationBell";
+
 export default function Header() {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem("userLogin"));
@@ -58,24 +60,40 @@ export default function Header() {
                     >
                         Marchés
                     </Link>
-                    <Link
-                        to="/ordres"
-                        className="text-sm text-white/60 hover:text-white/100 transition-colors"
-                    >
-                        Mes actifs
-                    </Link>
-                    <Link
-                        to="/virement"
-                        className="text-sm text-white/60 hover:text-white/100 transition-colors"
-                    >
-                        Virements
-                    </Link>
-                    <Link
-                        to="/historique"
-                        className="text-sm text-white/60 hover:text-white/100 transition-colors"
-                    >
-                        Historique
-                    </Link>
+                    {localStorage.getItem("userLogin") && (
+                        <>
+                            <Link
+                                to="/ordres"
+                                className="text-sm text-white/60 hover:text-white/100 transition-colors"
+                            >
+                                Mes actifs
+                            </Link>
+                            <Link
+                                to="/virement"
+                                className="text-sm text-white/60 hover:text-white/100 transition-colors"
+                            >
+                                Virements
+                            </Link>
+                            <Link
+                                to="/retrait"
+                                className="text-sm text-white/60 hover:text-white/100 transition-colors"
+                            >
+                                Retraits
+                            </Link>
+                            <Link
+                                to="/depot"
+                                className="text-sm text-white/60 hover:text-white/100 transition-colors"
+                            >
+                                Dépôt
+                            </Link>
+                            <Link
+                                to="/historique"
+                                className="text-sm text-white/60 hover:text-white/100 transition-colors"
+                            >
+                                Historique
+                            </Link>
+                        </>
+                    )}
                 </nav>
                 <div className="flex items-center space-x-4">
                     {!localStorage.getItem("userLogin") ? (
@@ -91,7 +109,7 @@ export default function Header() {
                                 <img
                                     className="w-10 h-10 rounded-full"
                                     src="https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                                    alt="Rounded avatar"
+                                    alt="avatar"
                                 ></img>
                             </Link>
 
