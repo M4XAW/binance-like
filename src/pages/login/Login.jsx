@@ -95,12 +95,6 @@ export default function LoginForm() {
                 </div>
             </header>
             <div className="relative h-[calc(100dvh-65px)] flex items-center justify-center w-full max-w-screen-2xl border-x border-neutral-800 mx-auto">
-                <Link
-                    to="/"
-                    className="absolute sm:top-8 top-4 sm:left-8 left-4 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white disabled:pointer-events-none disabled:opacity-50 hover:bg-neutral-800 h-9 px-4 py-2"
-                >
-                    Retour
-                </Link>
                 <div className="p-4 lg:p-8">
                     <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
                         <div className="flex flex-col space-y-2 text-center">
