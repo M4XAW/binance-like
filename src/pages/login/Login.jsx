@@ -13,6 +13,7 @@ export default function LoginForm() {
             username: "user1",
             password: "password1",
             portemonnaie: {
+                USD: 10000,
                 BTC: 1.5,
                 ETH: 3.2,
                 USDT: 1000,
@@ -29,6 +30,7 @@ export default function LoginForm() {
             username: "user2",
             password: "password2",
             portemonnaie: {
+                USD: 5000,
                 BTC: 0.8,
                 ETH: 1.5,
                 USDT: 500,
@@ -106,7 +108,7 @@ export default function LoginForm() {
                                 Connexion
                             </h1>
                             <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                                Entrer votre nom d'utilisateur et mot de passe ci-dessous
+                                Entrer votre nom d'utilisateur et le mot de passe
                             </p>
                         </div>
                         <div className="grid gap-6">

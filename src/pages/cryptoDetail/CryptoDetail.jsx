@@ -13,6 +13,7 @@ export default function CryptoDetail() {
 
     const [cryptoDetail, setCryptoDetail] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [message, setMessage] = useState(null);
 
     const [amount, setAmount] = useState("");
     const [limitPrice, setLimitPrice] = useState("");
@@ -48,29 +49,44 @@ export default function CryptoDetail() {
 
     const handleBuy = () => {
         if (!amount || !cryptoDetail) {
-            alert("Veuillez entrer un montant.");
+            setMessage("Veuillez entrer un montant");
             return;
         }
 
         const price = cryptoDetail.market_data?.current_price?.usd;
         const totalCost = parseFloat(amount) * price;
 
-        if (user.portemonnaie.USDT < totalCost) {
-            alert("Fonds insuffisants.");
+        if (user.portemonnaie.USD < totalCost) {
+            setMessage("Fonds insuffisants.");
             return;
         }
 
-        user.portemonnaie.USDT -= totalCost;
-        user.portemonnaie[id.toUpperCase()] =
-            (user.portemonnaie[id.toUpperCase()] || 0) + parseFloat(amount);
+        user.portemonnaie.USD -= totalCost;
+        user.portemonnaie[id.toUpperCase()] = (user.portemonnaie[id.toUpperCase()] || 0) + parseFloat(amount);
 
         localStorage.setItem("userLogin", JSON.stringify(user));
-        alert(`Achat réussi de ${amount} ${id.toUpperCase()}`);
+        setMessage(`Achat de ${amount} ${id.toUpperCase()} réussi !`);
+    };
+
+    const handleSell = () => {
+        if (!amount || !cryptoDetail) {
+            setMessage("Veuillez entrer un montant");
+            return;
+        }
+
+        const price = cryptoDetail.market_data?.current_price?.usd;
+        const totalCost = parseFloat(amount) * price;
+
+        user.portemonnaie.USD += totalCost;
+        user.portemonnaie[id.toUpperCase()] -= parseFloat(amount);
+        
+        localStorage.setItem("userLogin", JSON.stringify(user));
+        setMessage(`Vente de ${amount} ${id.toUpperCase()} réussie !`);
     };
 
     const handleSetLimitOrder = () => {
         if (!amount || !limitPrice) {
-            alert("Veuillez entrer un montant et un prix limite.");
+            setMessage("Veuillez entrer un montant et un prix limite");
             return;
         }
 
@@ -83,11 +99,11 @@ export default function CryptoDetail() {
         });
 
         localStorage.setItem("limitOrders", JSON.stringify(orders));
-        alert(`Ordre limite créé pour ${amount} ${id.toUpperCase()} à ${limitPrice} USD`);
+        setMessage(`Ordre limite créé pour ${amount} ${id.toUpperCase()} à ${limitPrice} USD`);
     };
 
     useEffect(() => {
-        // fetchCryptoDetail();
+        fetchCryptoDetail();
     }, [id]);
 
     if (!cryptoDetail) {
@@ -220,9 +236,9 @@ export default function CryptoDetail() {
                 <div className="flex flex-col gap-4 justify-between w-3/12 bg-neutral-800/30 border-l border-neutral-800 md:p-8 p-4">
                     <div className="space-y-2">
                         <input
-                            className="input"
+                            className="input text-5xl font-semibold w-full"
                             type="number"
-                            placeholder="Montant"
+                            placeholder="0.00"
                             value={amount}
                             onChange={(e) => setAmount(e.target.value)}
                         />
@@ -242,16 +258,16 @@ export default function CryptoDetail() {
                     </div>
                     <div className="inline-flex gap-4 w-full">
                         <button
-                            className="btn bg-green-500"
+                            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-1 outline-offset-4 disabled:pointer-events-none disabled:opacity-50 bg-green-500 border border-neutral-800 text-white shadow hover:bg-green-500/90 h-9 px-4 py-2"
                             onClick={handleBuy}
                         >
                             Acheter
                         </button>
                         <button
-                            className="btn bg-yellow-500"
-                            onClick={handleSetLimitOrder}
+                            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-1 outline-offset-4 disabled:pointer-events-none disabled:opacity-50 bg-red-500 border border-neutral-800 text-white shadow hover:bg-green-500/90 h-9 px-4 py-2"
+                            onClick={handleSell}
                         >
-                                Définir un ordre
+                            Vendre
                         </button>
                     </div>
                 </div>
