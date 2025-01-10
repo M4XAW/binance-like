@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import NotificationBell from "../../components/notificationBell/NotificationBell";
 
 export default function Header() {
@@ -60,14 +59,8 @@ export default function Header() {
                     >
                         Marchés
                     </Link>
-                    {localStorage.getItem("userLogin") && (
+                    {user && (
                         <>
-                            <Link
-                                to="/ordres"
-                                className="text-sm text-white/60 hover:text-white/100 transition-colors"
-                            >
-                                Mes actifs
-                            </Link>
                             <Link
                                 to="/virement"
                                 className="text-sm text-white/60 hover:text-white/100 transition-colors"
@@ -96,7 +89,8 @@ export default function Header() {
                     )}
                 </nav>
                 <div className="flex items-center space-x-4">
-                    {!localStorage.getItem("userLogin") ? (
+                    <NotificationBell />
+                    {!user ? (
                         <Link
                             to="/login"
                             className="inline-flex items-center justify-center sm:w-auto w-9 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-1 outline-offset-4 disabled:pointer-events-none disabled:opacity-50 bg-gray-50 text-zinc-950 shadow hover:bg-gray-50/90 h-9 py-2 px-4"
@@ -117,7 +111,7 @@ export default function Header() {
                                 onClick={handleLogOut}
                                 className="inline-flex items-center justify-center sm:w-auto w-9 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-1 outline-offset-4 disabled:pointer-events-none disabled:opacity-50 bg-red-500 text-white shadow hover:bg-red-700/90 h-9 py-2 px-4"
                             >
-                                Se déconnecter
+                                Déconnecter
                             </Link>
                         </>
                     )}
