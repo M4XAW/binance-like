@@ -83,51 +83,39 @@ export default function Profile() {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center">
-            <div className="bg-gray-900 p-8 rounded shadow-md w-full max-w-md">
-                <h2 className="text-2xl font-bold mb-6 text-center text-white">
-                    Profil de {user.username}
+        <main className="min-h-[calc(100dvh-65px)] w-full max-w-screen-2xl mx-auto border-x border-neutral-800">
+            <div className="border-b border-neutral-800 md:p-8 p-4">
+                <h2 className="text-2xl font-medium mb-6 text-white">
+                    Bienvenue, {user.username}
                 </h2>
                 <div>
-                    <h3 className="text-xl font-bold mb-4 text-white">
+                    <p className="text-gray-300 text-5xl font-medium mb-1">${totalValue}</p>
+                    <h3 className="text-md text-white/60">
                         Valeur totale du portefeuille
                     </h3>
-                    <p className="text-gray-300">${totalValue}</p>
                 </div>
-                <div className="mt-6">
-                    <h3 className="text-xl font-bold mb-4 text-white">
-                        Portefeuille
-                    </h3>
-                    <ul>
-                        {Object.entries(cryptoData).map(([crypto, data]) => (
-                            <li
-                                key={crypto}
-                                className="text-gray-300 mb-4 flex items-center"
-                            >
-                                <img
-                                    src={data.image}
-                                    alt={data.name}
-                                    className="w-8 h-8 mr-2"
-                                />
-                                <div>
-                                    <strong>{data.name}:</strong> {data.amount}{" "}
-                                    (Valeur: $
-                                    {(data.amount * data.price).toFixed(2)})
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <button
-                    className="bg-gray-100 hover:bg-gray-700 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
-                    onClick={() => {
-                        localStorage.removeItem("userLogin");
-                        navigate("/login");
-                    }}
-                >
-                    Se déconnecter
-                </button>
             </div>
-        </div>
+            <div className="p-8 shadow-md w-full max-w-md">
+                <ul>
+                    {Object.entries(cryptoData).map(([crypto, data]) => (
+                        <li
+                            key={crypto}
+                            className="text-gray-300 mb-4 flex items-center"
+                        >
+                            <img
+                                src={data.image}
+                                alt={data.name}
+                                className="w-8 h-8 mr-2"
+                            />
+                            <div>
+                                <strong>{data.name}:</strong> {data.amount}{" "}
+                                (Valeur: $
+                                {(data.amount * data.price).toFixed(2)})
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </main>
     );
 }
