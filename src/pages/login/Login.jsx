@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function LoginForm() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const navigate = useNavigate();
 
@@ -44,7 +45,7 @@ export default function LoginForm() {
 
     useEffect(() => {
         const existingUsers = JSON.parse(localStorage.getItem("usersList"));
-        if (!existingUsers) {
+        if (!existingUsers || existingUsers.length === 0) {
             localStorage.setItem("usersList", JSON.stringify(users));
         }
     }, []);
@@ -57,7 +58,10 @@ export default function LoginForm() {
         );
         if (user) {
             localStorage.setItem("userLogin", JSON.stringify(user));
+            setErrorMessage("");
             navigate("/");
+        } else {
+            setErrorMessage("Nom d'utilisateur ou mot de passe incorrect.");
         }
     };
 
@@ -126,7 +130,7 @@ export default function LoginForm() {
                                     <input
                                         className="flex h-9 w-full rounded-md border border-zinc-200 dark:border-neutral-800 bg-transparent px-3 py-1 text-sm text-zinc-900 dark:text-zinc-50 shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-black/60 dark:placeholder:text-white/60 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white disabled:cursor-not-allowed disabled:opacity-50"
                                         id="password"
-                                        placeholder="Password"
+                                        placeholder="Mot de passe"
                                         autoCapitalize="none"
                                         autoComplete="password"
                                         autoCorrect="off"
@@ -136,6 +140,11 @@ export default function LoginForm() {
                                             setPassword(e.target.value)
                                         }
                                     />
+                                    {errorMessage && (
+                                        <p className="text-sm text-red-500 dark:text-red-400">
+                                            {errorMessage}
+                                        </p>
+                                    )}
                                     <button
                                         type="submit"
                                         className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white disabled:pointer-events-none disabled:opacity-50 bg-zinc-900 dark:bg-gray-50 text-white dark:text-zinc-900 shadow hover:bg-white/90 h-9 px-4 py-2"
