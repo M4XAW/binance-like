@@ -7,7 +7,7 @@ export default function Header() {
     const user = JSON.parse(localStorage.getItem("userLogin"));
 
     const handleLogOut = () => {
-        localStorage.clear("userLogin");
+        localStorage.removeItem("userLogin");
         navigate("/");
     };
 
