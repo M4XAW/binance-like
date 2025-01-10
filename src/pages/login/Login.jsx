@@ -12,32 +12,32 @@ export default function LoginForm() {
             username: "user1",
             password: "password1",
             portemonnaie: {
-              BTC: 1.5,
-              ETH: 3.2,
-              USDT: 1000,
-              XRP: 500,
-              BNB: 10,
-              SOL: 12,
-              DOGE: 2000,
-              USDC: 1500,
-              ADA: 1000,
-              SETH: 0.5,
+                BTC: 1.5,
+                ETH: 3.2,
+                USDT: 1000,
+                XRP: 500,
+                BNB: 10,
+                SOL: 12,
+                DOGE: 2000,
+                USDC: 1500,
+                ADA: 1000,
+                SETH: 0.5,
             },
         },
         {
             username: "user2",
             password: "password2",
             portemonnaie: {
-              BTC: 0.8,
-              ETH: 1.5,
-              USDT: 500,
-              XRP: 300,
-              BNB: 5,
-              SOL: 7,
-              DOGE: 1000,
-              USDC: 800,
-              ADA: 600,
-              SETH: 0.2,
+                BTC: 0.8,
+                ETH: 1.5,
+                USDT: 500,
+                XRP: 300,
+                BNB: 5,
+                SOL: 7,
+                DOGE: 1000,
+                USDC: 800,
+                ADA: 600,
+                SETH: 0.2,
             },
         },
     ];
@@ -45,7 +45,7 @@ export default function LoginForm() {
     useEffect(() => {
         const existingUsers = JSON.parse(localStorage.getItem("usersList"));
         if (!existingUsers) {
-          localStorage.setItem("usersList", JSON.stringify(users));
+            localStorage.setItem("usersList", JSON.stringify(users));
         }
     }, []);
 
@@ -108,39 +108,27 @@ export default function LoginForm() {
                                 Connexion
                             </h1>
                             <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                                Entrer votre email et mot de passe ci-dessous
+                                Entrer votre nom d'utilisateur et mot de passe ci-dessous
                             </p>
                         </div>
                         <div className="grid gap-6">
                             <form onSubmit={handleLogin}>
                                 <div className="grid gap-2">
                                     <div className="relative">
-                                        <label
-                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 sr-only"
-                                            htmlFor="email"
-                                        >
-                                            Email
-                                        </label>
                                         <input
                                             className="flex h-9 w-full rounded-md border border-zinc-200 dark:border-neutral-800 bg-transparent px-3 py-1 text-sm text-zinc-900 dark:text-zinc-50 shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-black/60 dark:placeholder:text-white/60 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white disabled:cursor-not-allowed disabled:opacity-50"
-                                            id="email"
-                                            placeholder="Email"
+                                            id="username"
+                                            placeholder="Nom d'utilisateur"
                                             autoCapitalize="none"
-                                            autoComplete="email"
+                                            autoComplete="username"
                                             autoCorrect="off"
-                                            type="email"
+                                            type="text"
                                             value={username}
                                             onChange={(e) =>
                                                 setUsername(e.target.value)
                                             }
                                         />
                                     </div>
-                                    <label
-                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 sr-only"
-                                        htmlFor="password"
-                                    >
-                                        Password
-                                    </label>
                                     <input
                                         className="flex h-9 w-full rounded-md border border-zinc-200 dark:border-neutral-800 bg-transparent px-3 py-1 text-sm text-zinc-900 dark:text-zinc-50 shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-black/60 dark:placeholder:text-white/60 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white disabled:cursor-not-allowed disabled:opacity-50"
                                         id="password"
@@ -154,7 +142,10 @@ export default function LoginForm() {
                                             setPassword(e.target.value)
                                         }
                                     />
-                                    <button type="submit" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white disabled:pointer-events-none disabled:opacity-50 bg-zinc-900 dark:bg-gray-50 text-white dark:text-zinc-900 shadow hover:bg-white/90 h-9 px-4 py-2">
+                                    <button
+                                        type="submit"
+                                        className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white disabled:pointer-events-none disabled:opacity-50 bg-zinc-900 dark:bg-gray-50 text-white dark:text-zinc-900 shadow hover:bg-white/90 h-9 px-4 py-2"
+                                    >
                                         Se connecter
                                     </button>
                                 </div>
