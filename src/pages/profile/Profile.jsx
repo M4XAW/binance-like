@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
@@ -54,10 +54,10 @@ export default function Profile() {
         let total = 0;
         const cryptoDataMap = {};
         data.forEach((cryptoData) => {
-          const amount = user.portemonnaie[cryptoData.symbol.toLowerCase()];
+          const amount = user.portemonnaie[cryptoData.symbol.toUpperCase()];
           if (amount) {
             total += amount * cryptoData.current_price;
-            cryptoDataMap[cryptoData.symbol.toLowerCase()] = {
+            cryptoDataMap[cryptoData.symbol.toUpperCase()] = {
               name: cryptoData.name,
               image: cryptoData.image,
               price: cryptoData.current_price,
