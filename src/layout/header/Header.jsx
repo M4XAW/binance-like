@@ -7,7 +7,7 @@ export default function Header() {
     const user = JSON.parse(localStorage.getItem("userLogin"));
 
     const handleLogOut = () => {
-        localStorage.clear("userLogin");
+        localStorage.removeItem("userLogin");
         navigate("/");
     };
 
@@ -111,7 +111,7 @@ export default function Header() {
                                 onClick={handleLogOut}
                                 className="inline-flex items-center justify-center sm:w-auto w-9 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-1 outline-offset-4 disabled:pointer-events-none disabled:opacity-50 bg-red-500 text-white shadow hover:bg-red-700/90 h-9 py-2 px-4"
                             >
-                                Déconnecter
+                                Se déconnecter
                             </Link>
                         </>
                     )}
