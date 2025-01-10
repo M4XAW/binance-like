@@ -11,6 +11,8 @@ import VirementCrypto from "./pages/virementCrypto/VirementCrypto";
 import Historique from "./pages/historique/Historique";
 import RetraitCrypto from './pages/retraitCrypto/RetraitCrypto';
 import DepotFonds from './pages/depotFonds/DepotFonds';
+import Profile from "./pages/profile/Profile";
+
 
 
 
@@ -27,6 +29,8 @@ export default function App() {
           <Route path="/price/:id" element={<CryptoDetail />} />
           <Route path="/retrait" element={<RetraitCrypto />} />
           <Route path="/depot" element={<DepotFonds />} />
+          <Route path="/profile" element={<Profile />} />
+
 
 
         </Route>
@@ -34,4 +38,3 @@ export default function App() {
       </Routes>
     </>
   );
-}

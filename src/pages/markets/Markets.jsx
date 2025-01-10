@@ -5,43 +5,27 @@ import { CryptoData } from "../../components/cryptoData/CryptoData";
 export default function Markets() {
     return (
         <main className="min-h-[calc(100dvh-64px)] w-full">
-            <div className="border-b border-white/15">
-                <div className="relative w-full max-w-screen-2xl mx-auto overflow-auto md:p-8 p-4">
-                    <table className="w-full caption-bottom text-sm">
-                        <thead>
-                            <tr>
-                                <th className="h-10 px-4 text-left text-white/60 align-middle font-medium cursor-pointer">
-                                    Nom
-                                </th>
-                                <th className="h-10 px-4 text-left text-white/60 align-middle font-medium">
-                                    Prix
-                                </th>
-                                <th className="h-10 px-4 text-left text-white/60 align-middle font-medium cursor-pointer">
-                                    Variation
-                                </th>
-                                <th className="h-10 px-4 text-left text-white/60 align-middle font-medium">
-                                    Volume 24h
-                                </th>
-                                <th className="h-10 px-4 text-left align-middle text-white/60 font-medium">
-                                    Capitalisation
-                                </th>
-                                <th className="h-10 w-12 text-right px-4 align-middle text-white/60 font-medium"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <CryptoData
-                                cryptoIds={[
-                                    "bitcoin",
-                                    "ethereum",
-                                    "tether",
-                                    "xrp",
-                                    "bnb",
-                                    "solana",
-                                    "dogecoin",
-                                ]}
-                            />
-                        </tbody>
-                    </table>
+            <div className="relative w-full max-w-screen-2xl mx-auto overflow-auto md:p-8 p-4 border-x border-neutral-800">
+                <h1 className="text-3xl font-semibold text-white/90 mb-6">Aperçu du marché</h1>
+            </div>
+            <div className="border-y border-white/15">
+                <div className="relative w-full max-w-screen-2xl mx-auto border-x border-neutral-800 overflow-auto ">
+                    <CryptoData
+                        cryptoIds={[
+                            "bitcoin",
+                            "ethereum",
+                            "tether",
+                            "ripple",
+                            "bnb",
+                            "solana",
+                            "dogecoin",
+                            "usd-coin",
+                            "cardano",
+                            "tron",
+                            "avalanche-2",
+                            "sui",
+                        ]}
+                    />
                 </div>
             </div>
         </main>
