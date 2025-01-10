@@ -1,9 +1,0 @@
-.loader {
-    animation: shell-loading-spinner 1s linear infinite;
-}
-
-@keyframes shell-loading-spinner {
-    100% {
-        transform: rotate(360deg);
-    }
-}

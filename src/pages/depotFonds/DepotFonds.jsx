@@ -107,7 +107,7 @@ function DepotFonds() {
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               className="shadow appearance-none border border-gray-700 rounded w-full py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Ex : 100"
+              placeholder="Saisir votre montant"
               required
             />
           </div>
