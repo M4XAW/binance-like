@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { formattedNumber } from "../../utils/formattedNumber";
 
+import Loading from "../../components/loading/Loading";
 import Chart from "../../components/chart/Chart";
 
 import { MoveUpRight, MoveDownRight, Infinity } from "lucide-react";
@@ -12,7 +13,11 @@ export default function CryptoDetail() {
 
     const [cryptoDetail, setCryptoDetail] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+
+    const [amount, setAmount] = useState("");
+    const [limitPrice, setLimitPrice] = useState("");
+
+    const user = JSON.parse(localStorage.getItem("userLogin"));
 
     const fetchCryptoDetail = async () => {
         setIsLoading(true);
@@ -41,23 +46,53 @@ export default function CryptoDetail() {
         }
     };
 
-    useEffect(() => {
-        fetchCryptoDetail();
-    }, [id]);
+    const handleBuy = () => {
+        if (!amount || !cryptoDetail) {
+            alert("Veuillez entrer un montant.");
+            return;
+        }
 
-    if (error) {
-        return (
-            <div className="flex items-center justify-center h-[calc(100vh-64px)]">
-                <p className="text-red-500">{error}</p>
-            </div>
-        );
-    }
+        const price = cryptoDetail.market_data?.current_price?.usd;
+        const totalCost = parseFloat(amount) * price;
+
+        if (user.portemonnaie.USDT < totalCost) {
+            alert("Fonds insuffisants.");
+            return;
+        }
+
+        user.portemonnaie.USDT -= totalCost;
+        user.portemonnaie[id.toUpperCase()] =
+            (user.portemonnaie[id.toUpperCase()] || 0) + parseFloat(amount);
+
+        localStorage.setItem("userLogin", JSON.stringify(user));
+        alert(`Achat réussi de ${amount} ${id.toUpperCase()}`);
+    };
+
+    const handleSetLimitOrder = () => {
+        if (!amount || !limitPrice) {
+            alert("Veuillez entrer un montant et un prix limite.");
+            return;
+        }
+
+        const orders = JSON.parse(localStorage.getItem("limitOrders")) || [];
+        orders.push({
+            crypto: id.toUpperCase(),
+            amount: parseFloat(amount),
+            limitPrice: parseFloat(limitPrice),
+            type: "buy",
+        });
+
+        localStorage.setItem("limitOrders", JSON.stringify(orders));
+        alert(`Ordre limite créé pour ${amount} ${id.toUpperCase()} à ${limitPrice} USD`);
+    };
+
+    useEffect(() => {
+        // fetchCryptoDetail();
+    }, [id]);
 
     if (!cryptoDetail) {
         return (
-            <div className="flex items-center justify-center h-[calc(100vh-64px)]">
-                <div className="loader inline-block h-6 w-6 p-0 border-t-2 border-r-2 border-b-2 border-zinc-700 border-l-2 border-l-gray-50 rounded-full"></div>
-            </div>
+            <Loading />
         );
     }
 
@@ -136,7 +171,7 @@ export default function CryptoDetail() {
             </nav>
 
             <div className="flex border-b border-neutral-800">
-                <div className="w-8/12 md:p-8 p-4">
+                <div className="w-9/12 md:p-8 p-4">
                     <div className="mb-10">
                         <div className="flex items-center gap-2 mb-6">
                             <img
@@ -152,10 +187,7 @@ export default function CryptoDetail() {
                             </p>
                         </div>
                         <h1 className="text-3xl font-semibold capitalize my-1.5">
-                            {currencyFormat(
-                                cryptoDetail.market_data?.current_price?.usd ||
-                                    "Erreur"
-                            )}
+                            {currencyFormat(cryptoDetail.market_data?.current_price?.usd || "Erreur")}
                         </h1>
                         {cryptoDetail.market_data
                             ?.price_change_percentage_24h !== undefined &&
@@ -185,24 +217,41 @@ export default function CryptoDetail() {
                         <Chart id={id} />
                     </div>
                 </div>
-                <div className="flex flex-col justify-between w-4/12 bg-neutral-800/30 border-l border-neutral-800 md:p-8 p-4">
-                    <input
-                        className="flex h-9 max-w-72 w-full rounded-md border border-neutral-800 bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-neutral-500 focus-visible:outline-none focus-visible:ring-1 ring-white disabled:cursor-not-allowed disabled:opacity-50"
-                        type="text"
-                        placeholder="0.00"
-                    />
-                    <div className="inline-flex gap-8 w-full">
+                <div className="flex flex-col gap-4 justify-between w-3/12 bg-neutral-800/30 border-l border-neutral-800 md:p-8 p-4">
+                    <div className="space-y-2">
+                        <input
+                            className="input"
+                            type="number"
+                            placeholder="Montant"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                        />
+                        <input
+                            className="input"
+                            type="number"
+                            placeholder="Prix limite (optionnel)"
+                            value={limitPrice}
+                            onChange={(e) => setLimitPrice(e.target.value)}
+                        />
+                        <div className="flex space-x-2 w-full">
+                            <button className="inline-flex items-center justify-center w-full whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-1 outline-offset-4 disabled:pointer-events-none disabled:opacity-50 bg-transparent border border-neutral-800 text-white shadow hover:bg-white/10 h-9 px-4 py-2">25%</button>
+                            <button className="inline-flex items-center justify-center w-full whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-1 outline-offset-4 disabled:pointer-events-none disabled:opacity-50 bg-transparent border border-neutral-800 text-white shadow hover:bg-white/10 h-9 px-4 py-2">50%</button>
+                            <button className="inline-flex items-center justify-center w-full whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-1 outline-offset-4 disabled:pointer-events-none disabled:opacity-50 bg-transparent border border-neutral-800 text-white shadow hover:bg-white/10 h-9 px-4 py-2">75%</button>
+                            <button className="inline-flex items-center justify-center w-full whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-1 outline-offset-4 disabled:pointer-events-none disabled:opacity-50 bg-transparent border border-neutral-800 text-white shadow hover:bg-white/10 h-9 px-4 py-2">100%</button>
+                        </div>
+                    </div>
+                    <div className="inline-flex gap-4 w-full">
                         <button
-                            to="/login"
-                            className="inline-flex items-center justify-center w-1/2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-1 outline-offset-4 disabled:pointer-events-none disabled:opacity-50 bg-green-500 text-zinc-950 shadow hover:bg-green-500/90 h-9 py-2 px-4"
+                            className="btn bg-green-500"
+                            onClick={handleBuy}
                         >
                             Acheter
                         </button>
                         <button
-                            to="/login"
-                            className="inline-flex items-center justify-center w-1/2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-1 outline-offset-4 disabled:pointer-events-none disabled:opacity-50 bg-red-500 text-zinc-950 shadow hover:bg-red-500/90 h-9 py-2 px-4"
+                            className="btn bg-yellow-500"
+                            onClick={handleSetLimitOrder}
                         >
-                            Vendre
+                                Définir un ordre
                         </button>
                     </div>
                 </div>
@@ -244,7 +293,7 @@ export default function CryptoDetail() {
                             )}
                         </p>
                     </div>
-                    <di>
+                    <div>
                         <p className="text-white/60 text-xs uppercase">
                             Offre maximale
                         </p>
@@ -257,16 +306,16 @@ export default function CryptoDetail() {
                                 )
                             )}
                         </p>
-                    </di>
-                    <di>
+                    </div>
+                    <div>
                         <p className="text-white/60 text-xs uppercase">
                             Popularité
                         </p>
                         <p className="text-white">
                             {cryptoDetail.market_data?.market_cap_rank}
                         </p>
-                    </di>
-                    <di>
+                    </div>
+                    <div>
                         <p className="text-white/60 text-xs uppercase">
                             Niveau historique
                         </p>
@@ -275,7 +324,7 @@ export default function CryptoDetail() {
                                 cryptoDetail.market_data?.ath?.usd || "Erreur"
                             )}
                         </p>
-                    </di>
+                    </div>
                 </div>
             </div>
         </main>
