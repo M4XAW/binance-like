@@ -15,7 +15,6 @@ import Profile from "./pages/profile/Profile";
 
 
 
-
 export default function App() {
   return (
     <>
@@ -30,11 +29,9 @@ export default function App() {
           <Route path="/retrait" element={<RetraitCrypto />} />
           <Route path="/depot" element={<DepotFonds />} />
           <Route path="/profile" element={<Profile />} />
-
-
-
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
+}
