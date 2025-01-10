@@ -38,7 +38,7 @@ export default function CryptoData() {
     };
 
     useEffect(() => {
-        // fetchCryptoData();
+        fetchCryptoData();
     }, []);
 
     return (
