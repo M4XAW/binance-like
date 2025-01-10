@@ -14,22 +14,22 @@ import Login from "./pages/login/Login";
 import NotFound from "./pages/notFound/NotFound";
 
 export default function App() {
-    return (
-        <>
-            <Routes>
-                <Route element={<PageLayout />}>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/markets/overview" element={<Markets />} />
-                    <Route path="/virement" element={<VirementCrypto />} />
-                    <Route path="/historique" element={<Historique />} />
-                    <Route path="/price/:id" element={<CryptoDetail />} />
-                    <Route path="/retrait" element={<RetraitCrypto />} />
-                    <Route path="/depot" element={<DepotFonds />} />
-                    <Route path="/profile" element={<Profile />} />
-                </Route>
-                <Route path="/login" element={<Login />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-        </>
-    );
+  return (
+    <>
+      <Routes>
+        <Route element={<PageLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/markets/overview" element={<Markets />} />
+          <Route path="/virement" element={<VirementCrypto />} />
+          <Route path="/historique" element={<Historique />} />
+          <Route path="/price/:id" element={<CryptoDetail />} />
+          <Route path="/retrait" element={<RetraitCrypto />} />
+          <Route path="/depot" element={<DepotFonds />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
+  );
 }
