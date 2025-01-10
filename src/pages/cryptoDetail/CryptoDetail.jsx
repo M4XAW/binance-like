@@ -190,18 +190,18 @@ export default function CryptoDetail() {
                         <p className="text-white/60 text-xs uppercase">En circulation</p>
                         <p className="text-white">{formattedNumber(cryptoDetail.market_data?.circulating_supply)}</p>
                     </div>
-                    <di>
+                    <div>
                         <p className="text-white/60 text-xs uppercase">Offre maximale</p>
                         <p className="text-white">{cryptoDetail.market_data?.max_supply_infinite ? <Infinity size={18} /> : formattedNumber(cryptoDetail.market_data?.max_supply)}</p>
-                    </di>
-                    <di>
+                    </div>
+                    <div>
                         <p className="text-white/60 text-xs uppercase">Popularité</p>
                         <p className="text-white">{cryptoDetail.market_data?.market_cap_rank}</p>
-                    </di>
-                    <di>
+                    </div>
+                    <div>
                         <p className="text-white/60 text-xs uppercase">Niveau historique</p>
                         <p className="text-white">{currencyFormat(cryptoDetail.market_data?.ath?.usd || "Erreur")}</p>
-                    </di>
+                    </div>
                 </div>
             </div>
         </main>
