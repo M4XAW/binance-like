@@ -1,6 +1,6 @@
 import React from "react";
 
-import { CryptoData } from "../../components/cryptoData/CryptoData";
+import CryptoData from "../../components/cryptoData/CryptoData"
 
 export default function Markets() {
     return (
@@ -11,37 +11,7 @@ export default function Markets() {
             </div>
             <div className="border-t border-neutral-800">
                 <div className="relative w-full max-w-screen-2xl mx-auto border-x border-neutral-800 overflow-auto ">
-                    <CryptoData
-                        cryptoIds={[
-                            "bitcoin",
-                            "ethereum",
-                            "tether",
-                            "ripple",
-                            "bnb",
-                            "solana",
-                            "dogecoin",
-                            "usd-coin",
-                            "cardano",
-                            "the-open-network",
-                            "avalanche-2",
-                            "sui",
-                            "chainlink",
-                            "shiba-inu",
-                            "wrapped-btc-wormhole",
-                            "stellar",
-                            "hedera-hashgraph",
-                            "polkadot",
-                            "bitcoin-cash",
-                            "litecoin",
-                            "uniswap",
-                            "pepe",
-                            "wrapped-beacon-eth",
-                            "near",
-                            "dai",
-                            "internet-computer",
-                            "aptos"
-                        ]}
-                    />
+                    <CryptoData />
                 </div>
             </div>
         </main>
