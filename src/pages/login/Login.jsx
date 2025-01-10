@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  
-  const users = [
+
+  const initialUsers = [
     {
       username: "user1",
       password: "password1",
@@ -40,11 +40,17 @@ export default function LoginForm() {
     },
   ];
 
-  localStorage.setItem("usersList", JSON.stringify(users));
+  useEffect(() => {
+    const existingUsers = JSON.parse(localStorage.getItem("usersList"));
+    if (!existingUsers) {
+      localStorage.setItem("usersList", JSON.stringify(initialUsers));
+    }
+  }, []);
 
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+
     const users = JSON.parse(localStorage.getItem("usersList")) || [];
     const user = users.find(
       (u) => u.username === username && u.password === password

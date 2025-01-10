@@ -3,21 +3,35 @@ import React, { useState, useEffect } from 'react';
 function NotificationBell() {
   const [notifications, setNotifications] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    const loadNotifications = () => {
-      const savedNotifications = JSON.parse(localStorage.getItem('notifications')) || [];
-      setNotifications(savedNotifications);
+    const userLogin = JSON.parse(localStorage.getItem('userLogin'));
+    setCurrentUser(userLogin?.username || "");
+
+    const loadTransactionHistory = () => {
+      const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
+      
+      const relevantNotifications = transactionHistory.filter(
+        (transaction) => transaction.sender === currentUser || transaction.receiver === currentUser
+      );
+
+      const notificationsWithReadStatus = relevantNotifications.map(notification => ({
+        ...notification,
+        read: notification.read || false,
+      }));
+
+      setNotifications(notificationsWithReadStatus);
     };
 
-    loadNotifications();
+    loadTransactionHistory();
 
     const intervalId = setInterval(() => {
-      loadNotifications();
+      loadTransactionHistory();
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [currentUser]);
 
   const unreadCount = notifications.filter(notification => !notification.read).length;
 
@@ -27,17 +41,20 @@ function NotificationBell() {
       read: true,
     }));
     setNotifications(updatedNotifications);
-    localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+    localStorage.setItem('transactionHistory', JSON.stringify(updatedNotifications));
   };
 
   const markAsRead = (index) => {
     const updatedNotifications = [...notifications];
     updatedNotifications[index].read = true;
     setNotifications(updatedNotifications);
-    localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+    
+    localStorage.setItem('transactionHistory', JSON.stringify(updatedNotifications));
   };
 
-  const sortedNotifications = notifications.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+  const sortedNotifications = notifications.sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
 
   return (
     <div className="relative">
@@ -74,9 +91,13 @@ function NotificationBell() {
                   onClick={() => markAsRead(index)}
                   className={`px-4 py-2 cursor-pointer ${notification.read ? 'bg-gray-800' : 'bg-blue-900'}`}
                 >
-                  {notification.message} <br />
+                  {notification.crypto} : {notification.amount} <br />
                   <span className="text-xs text-gray-500">
-                    {new Date(notification.timestamp).toLocaleString()}
+                    {notification.sender} → {notification.receiver}
+                  </span>
+                  <br />
+                  <span className="text-xs text-gray-500">
+                    {notification.date}
                   </span>
                 </li>
               ))

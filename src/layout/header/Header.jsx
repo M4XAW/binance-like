@@ -60,6 +60,18 @@ export default function Header() {
                         Virements
                     </Link>
                     <Link
+                        to="/retrait"
+                        className="text-sm text-white/60 hover:text-white/100 transition-colors"
+                    >
+                        Retraits
+                    </Link>
+                    <Link
+                        to="/depot"
+                        className="text-sm text-white/60 hover:text-white/100 transition-colors"
+                    >
+                        Dépôt
+                    </Link>
+                    <Link
                         to="/historique"
                         className="text-sm text-white/60 hover:text-white/100 transition-colors"
                     >
@@ -67,9 +79,7 @@ export default function Header() {
                     </Link>
                 </nav>
                 <div className="flex items-center space-x-4">
-                    {/* Cloche de notifications */}
                     <NotificationBell />
-
                     {!localStorage.getItem("userLogin") ? (
                         <Link
                             to="/login"

@@ -9,6 +9,9 @@ import NotFound from "./pages/notFound/NotFound";
 import Login from "./pages/login/Login";
 import VirementCrypto from "./pages/virementCrypto/VirementCrypto";
 import Historique from "./pages/historique/Historique";
+import RetraitCrypto from './pages/retraitCrypto/RetraitCrypto';
+import DepotFonds from './pages/depotFonds/DepotFonds';
+
 
 
 export default function App() {
@@ -22,6 +25,10 @@ export default function App() {
           <Route path="/virement" element={<VirementCrypto />} />
           <Route path="/historique" element={<Historique />} />
           <Route path="/price/:id" element={<CryptoDetail />} />
+          <Route path="/retrait" element={<RetraitCrypto />} />
+          <Route path="/depot" element={<DepotFonds />} />
+
+
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

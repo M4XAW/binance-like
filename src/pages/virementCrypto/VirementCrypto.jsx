@@ -21,6 +21,8 @@ function VirementCrypto() {
   }, []);
 
   const handleTransaction = () => {
+    setErrorMessage('');
+
     if (amount <= 0 || isNaN(amount)) {
       setErrorMessage('Le montant doit être supérieur à zéro.');
       return;
@@ -61,23 +63,25 @@ function VirementCrypto() {
       return user;
     });
 
+    const updatedSender = updatedUsers.find(user => user.username === selectedSender);
+
     localStorage.setItem('usersList', JSON.stringify(updatedUsers));
+    localStorage.setItem('userLogin', JSON.stringify(updatedSender));
     setUsers(updatedUsers);
 
-    // Ajouter la transaction à l'historique
     const transaction = {
       sender: selectedSender,
       receiver: selectedReceiver,
       crypto: selectedCrypto,
       amount: parseFloat(amount),
       date: new Date().toLocaleString(),
+      type: 'virement',
     };
 
     const transactionHistory = JSON.parse(localStorage.getItem('transactionHistory')) || [];
     transactionHistory.push(transaction);
     localStorage.setItem('transactionHistory', JSON.stringify(transactionHistory));
 
-    // Ajouter une notification
     const notification = {
       type: 'success',
       message: `Transaction réussie ! ${amount} ${selectedCrypto} envoyés de ${sender.username} à ${receiver.username}.`,
@@ -124,7 +128,7 @@ function VirementCrypto() {
             >
               <option value="">Sélectionner un utilisateur</option>
               {users
-                .filter(user => user.username !== selectedSender) // Exclure l'expéditeur
+                .filter(user => user.username !== selectedSender)
                 .map(user => (
                   <option key={user.username} value={user.username}>
                     {user.username}
@@ -175,7 +179,7 @@ function VirementCrypto() {
           <button
             type="submit"
             onClick={handleTransaction}
-            className="bg-gray-100 hover:bg-gray-700 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
             Effectuer le virement
           </button>
@@ -183,7 +187,7 @@ function VirementCrypto() {
 
         <button
           onClick={() => navigate('/historique')}
-          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="mt-4 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
         >
           Voir l'historique des transactions
         </button>
