@@ -9,6 +9,8 @@ import {
     Tooltip,
 } from "recharts";
 
+import { currencyFormat } from "../../utils/currencyFormat";
+
 export default function Chart({ id }) {
     const [chartData, setChartData] = useState([]);
 
@@ -27,11 +29,16 @@ export default function Chart({ id }) {
         )
             .then((res) => res.json())
             .then((data) => {
-                const formattedData = data.prices.map(([timestamp, price]) => ({
-                    name: new Date(timestamp).toLocaleTimeString(),
-                    value: price,
-                }));
+                const formattedData = data.prices.map(([timestamp, price]) => {
+                    const date = new Date(timestamp);
+                    const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    return {
+                        name: timeString,
+                        value: price,
+                    };
+                });
                 setChartData(formattedData);
+                console.log(formattedData);
             })
             .catch((error) => console.log(error));
     };
@@ -39,6 +46,19 @@ export default function Chart({ id }) {
     useEffect(() => {
         fetchChartData();
     }, [id]);
+
+    const CustomTooltip = ({ active, payload }) => {
+        if (active && payload && payload.length) {
+            const { name, value } = payload[0].payload; 
+            return (
+                <div className="custom-tooltip bg-zinc-900 p-3 rounded-md border border-neutral-800 shadow-md">
+                    <p className="text-white/60 text-xs">{name}</p>
+                    <p className="text-white text-sm">{`Prix : ${currencyFormat(value)}`}</p>
+                </div>
+            );
+        }
+        return null;
+    };    
 
     return (
         <ResponsiveContainer width="100%" height="100%">
@@ -65,10 +85,20 @@ export default function Chart({ id }) {
                         />
                     </linearGradient>
                 </defs>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <CartesianGrid strokeDasharray="3 3" />
-                <Tooltip />
+                <XAxis 
+                    dataKey="name" 
+                    fontSize={12}
+                    axisLine={false}
+                    interval={50}
+                />
+                <YAxis 
+                    fontSize={12}
+                />
+                <CartesianGrid 
+                    strokeDasharray="3 3"
+                    vertical={false}
+                 />
+                <Tooltip content={<CustomTooltip />} />
                 <Area
                     type="monotone"
                     dataKey="value"
