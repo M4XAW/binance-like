@@ -45,7 +45,7 @@ export default function CryptoDetail() {
     };
 
     useEffect(() => {
-        // fetchCryptoDetail();
+        fetchCryptoDetail();
     }, [id]);
 
     if (error) {
@@ -141,12 +141,16 @@ export default function CryptoDetail() {
             <div className="flex border-b border-neutral-800">
                 <div className="w-8/12 md:p-8 p-4">
                     <div className="mb-10">
-                        <p>
-                            {cryptoDetail.name}
-                            <span className="uppercase">
-                                ({cryptoDetail.symbol})
-                            </span>
-                        </p>
+                        <div className="flex items-center gap-2 mb-6">
+                            <img
+                                src={cryptoDetail.image?.small}
+                                alt={cryptoDetail.name}
+                                className="h-6 w-6"
+                            />
+                            <p>
+                                {cryptoDetail.name} <span className="uppercase">({cryptoDetail.symbol})</span>
+                            </p>
+                        </div>
                         <h1 className="text-3xl font-semibold capitalize my-1.5">
                             {currencyFormat(cryptoDetail.market_data?.current_price?.usd || "Erreur")}
                         </h1>
@@ -171,31 +175,31 @@ export default function CryptoDetail() {
                 </div>
                 <div className="w-4/12 bg-neutral-800/30 border-l border-neutral-800 md:p-8 p-4"></div>
             </div>
-            <div className="md:p-8 p-4">
+            <div className="w-1/2 md:p-8 p-4 border-r border-neutral-800">
                 <h3 className="text-sm font-semibold text-white/90 uppercase">Total</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
                     <div>
-                        <p className="text-white/60 text-sm uppercase">Capitalisation</p>
+                        <p className="text-white/60 text-xs uppercase">Capitalisation</p>
                         <p className="text-white">{currencyFormat(cryptoDetail.market_data?.market_cap?.usd || "Erreur")}</p>
                     </div>
                     <div>
-                        <p className="text-white/60 text-sm uppercase">Volume en 24h</p>
+                        <p className="text-white/60 text-xs uppercase">Volume en 24h</p>
                         <p className="text-white">{currencyFormat(cryptoDetail.market_data?.total_volume?.usd || "Erreur")}</p>
                     </div>
                     <div>
-                        <p className="text-white/60 text-sm uppercase">En circulation</p>
+                        <p className="text-white/60 text-xs uppercase">En circulation</p>
                         <p className="text-white">{formattedNumber(cryptoDetail.market_data?.circulating_supply)}</p>
                     </div>
                     <di>
-                        <p className="text-white/60 text-sm uppercase">Offre maximale</p>
+                        <p className="text-white/60 text-xs uppercase">Offre maximale</p>
                         <p className="text-white">{cryptoDetail.market_data?.max_supply_infinite ? <Infinity size={18} /> : formattedNumber(cryptoDetail.market_data?.max_supply)}</p>
                     </di>
                     <di>
-                        <p className="text-white/60 text-sm uppercase">Popularité</p>
+                        <p className="text-white/60 text-xs uppercase">Popularité</p>
                         <p className="text-white">{cryptoDetail.market_data?.market_cap_rank}</p>
                     </di>
                     <di>
-                        <p className="text-white/60 text-sm uppercase">Niveau historique</p>
+                        <p className="text-white/60 text-xs uppercase">Niveau historique</p>
                         <p className="text-white">{currencyFormat(cryptoDetail.market_data?.ath?.usd || "Erreur")}</p>
                     </di>
                 </div>
