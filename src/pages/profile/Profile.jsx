@@ -73,7 +73,9 @@ export default function Profile() {
       }
     };
 
-    fetchPrices();
+    if (!dataFetched) {
+      fetchPrices();
+    }
   }, [user, navigate, dataFetched]);
 
   if (!user) {
