@@ -89,7 +89,7 @@ export default function Profile() {
                     Bienvenue, {user.username}
                 </h2>
                 <div>
-                    <p className="text-gray-300 text-5xl font-medium mb-1">${totalValue}</p>
+                    <p className="text-white text-5xl font-medium mb-1">${totalValue}</p>
                     <h3 className="text-md text-white/60">
                         Valeur totale du portefeuille
                     </h3>
@@ -100,7 +100,7 @@ export default function Profile() {
                     {Object.entries(cryptoData).map(([crypto, data]) => (
                         <li
                             key={crypto}
-                            className="text-gray-300 mb-4 flex items-center"
+                            className="text-white mb-4 flex items-center"
                         >
                             <img
                                 src={data.image}
