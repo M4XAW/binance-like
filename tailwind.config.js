@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "binance-yellow": "#F3BA2F",
+      }
+    },
   },
   plugins: [],
 }

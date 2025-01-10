@@ -1,11 +1,21 @@
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
     const navigate = useNavigate();
+    const user = JSON.parse(localStorage.getItem("userLogin"));
+
     const handleLogOut = () => {
         localStorage.clear("userLogin");
         navigate("/");
     };
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+            return;
+        }
+    }, [user, navigate]);
 
     return (
         <header className="sticky top-0 z-20 w-full border-b border-neutral-800 bg-white/80 dark:bg-zinc-950/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -89,7 +99,7 @@ export default function Header() {
                                 onClick={handleLogOut}
                                 className="inline-flex items-center justify-center sm:w-auto w-9 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-1 outline-offset-4 disabled:pointer-events-none disabled:opacity-50 bg-red-500 text-white shadow hover:bg-red-700/90 h-9 py-2 px-4"
                             >
-                                Déconnecter
+                                Se déconnecter
                             </Link>
                         </>
                     )}
